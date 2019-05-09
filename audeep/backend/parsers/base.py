@@ -138,7 +138,7 @@ class _InstanceMetadata:
         return self._partition
 
 
-class Parser:
+class Parser(metaclass=abc.ABCMeta):
     """
     Base class for all data set parsers.
     
@@ -147,7 +147,6 @@ class Parser:
     whether it can parse the data set or not. If it can, it has to provide various metadata about the data set in
     general, as well as metadata about each audio file.
     """
-    __metaclass__ = abc.ABCMeta
 
     def __init__(self,
                  basedir: Path):

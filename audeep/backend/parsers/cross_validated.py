@@ -150,7 +150,7 @@ class CrossValidatedParser(LoggingMixin, Parser):
 
             classes = set(classes)
 
-            self._label_map_cache = dict(list(zip(sorted(classes), range(len(classes)))))
+            self._label_map_cache = dict(list(zip(sorted(classes), list(range(len(classes))))))
 
         return self._label_map_cache
 

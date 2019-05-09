@@ -63,7 +63,7 @@ class PartitionedParser(LoggingMixin, Parser):
         bool
             True, if this parser can parse the directory structure in the data set base directory
         """
-        existing_dirs = [partition_dir for partition_dir in self._dirs.values() if partition_dir.exists()]
+        existing_dirs = [partition_dir for partition_dir in list(self._dirs.values()) if partition_dir.exists()]
 
         if len(existing_dirs) == 0:
             self.log.debug("cannot parse: there has to be at least one partition directory")
@@ -106,7 +106,7 @@ class PartitionedParser(LoggingMixin, Parser):
             raise IOError("unable to parse dataset at {}".format(self._basedir))
 
         if self._label_map_cache is None:
-            existing_dirs = [partition_dir for partition_dir in self._dirs.values() if partition_dir.exists()]
+            existing_dirs = [partition_dir for partition_dir in list(self._dirs.values()) if partition_dir.exists()]
             classes = []
 
             for partition_dir in existing_dirs:
@@ -121,7 +121,7 @@ class PartitionedParser(LoggingMixin, Parser):
 
             classes = set(classes)
 
-            self._label_map_cache = dict(list(zip(sorted(classes), range(len(classes)))))
+            self._label_map_cache = dict(list(zip(sorted(classes), list(range(len(classes))))))
 
         return self._label_map_cache
 
@@ -166,7 +166,7 @@ class PartitionedParser(LoggingMixin, Parser):
         if self._num_instances_cache is None:
             self._num_instances_cache = 0
 
-            existing_dirs = [partition_dir for partition_dir in self._dirs.values() if partition_dir.exists()]
+            existing_dirs = [partition_dir for partition_dir in list(self._dirs.values()) if partition_dir.exists()]
 
             for partition_dir in existing_dirs:
                 for class_dir in partition_dir.glob("*"):
@@ -198,7 +198,7 @@ class PartitionedParser(LoggingMixin, Parser):
 
         meta_list = []
 
-        existing_dirs = [(partition, partition_dir) for (partition, partition_dir) in self._dirs.items()
+        existing_dirs = [(partition, partition_dir) for (partition, partition_dir) in list(self._dirs.items())
                          if partition_dir.exists()]
 
         for partition, partition_dir in sorted(existing_dirs, key=lambda x: x[1]):

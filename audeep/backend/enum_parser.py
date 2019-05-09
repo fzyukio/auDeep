@@ -64,6 +64,6 @@ class EnumType:
         arg_lower = arg.lower()
 
         if not arg_lower in self._member_map:
-            raise ArgumentTypeError("invalid choice %s (choose from %s)" % (arg, ", ".join(self._member_map.values())))
+            raise ArgumentTypeError("invalid choice %s (choose from %s)" % (arg, ", ".join(list(self._member_map.values()))))
 
         return self._enum_class[self._member_map[arg_lower]]

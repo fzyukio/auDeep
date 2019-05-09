@@ -28,13 +28,12 @@ from audeep.backend.training.frequency_time_autoencoder import FrequencyTimeAuto
 from audeep.backend.training.time_autoencoder import TimeAutoencoderWrapper
 
 
-class GenerateBaseCommand(Command):
+class GenerateBaseCommand(Command, metaclass=abc.ABCMeta):
     """
     Base class for all feature generation commands.
     
     Defines common command line options and common functionality.
     """
-    __metaclass__ = abc.ABCMeta
 
     def __init__(self,
                  app,

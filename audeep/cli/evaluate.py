@@ -32,13 +32,12 @@ from audeep.backend.learners import TensorflowMLPLearner, LearnerBase, LibLINEAR
 from audeep.backend.log import LoggingMixin
 
 
-class EvaluateBaseCommand(LoggingMixin, Command):
+class EvaluateBaseCommand(LoggingMixin, Command, metaclass=abc.ABCMeta):
     """
     Base class for all evaluation commands.
     
     This class defines common command line options, and common functionality.
     """
-    __metaclass__ = abc.ABCMeta
 
     def __init__(self,
                  app,
@@ -100,7 +99,7 @@ class EvaluateBaseCommand(LoggingMixin, Command):
             cm = cm_norm
 
         thresh = cm.max() / 2.
-        for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+        for i, j in itertools.product(list(range(cm.shape[0])), list(range(cm.shape[1]))):
             if normalize:
                 plt.text(j, i, "%1.2f" % cm[i, j],
                          horizontalalignment="center",
@@ -193,7 +192,7 @@ class EvaluateBaseCommand(LoggingMixin, Command):
         if self.app_args.verbose_level == 0:
             # support for piping the output of this command
             # noinspection PyStringFormat
-            print("%.4f,%.4f" % (accuracy, uar))
+            print(("%.4f,%.4f" % (accuracy, uar)))
         else:
             self.plot_confusion_matrix(confusion_matrix, sorted(data_set.label_map.keys()), normalize=True)
 

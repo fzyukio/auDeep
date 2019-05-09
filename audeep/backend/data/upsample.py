@@ -41,7 +41,7 @@ def _invert_label_map(label_map: Mapping[str, int]) -> Mapping[int, str]:
         The inverted label map, which maps numeric label values to nominal label values
     """
     # noinspection PyTypeChecker
-    return dict(map(reversed, label_map.items()))
+    return dict(list(map(reversed, list(label_map.items()))))
 
 
 def upsample(data_set: DataSet,
@@ -106,7 +106,7 @@ def upsample(data_set: DataSet,
     log.info("upsampling with factors %s for labels %s, resulting in %d instances total", upsample_factors,
              [inverse_label_map[x] for x in unique], num_instances)
 
-    upsample_map = dict(zip(unique, upsample_factors))
+    upsample_map = dict(list(zip(unique, upsample_factors)))
 
     # noinspection PyTypeChecker
     new_data = empty(num_instances, list(zip(data_set.feature_dims, data_set.feature_shape)), data_set.num_folds)

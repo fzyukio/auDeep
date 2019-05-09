@@ -31,11 +31,10 @@ from audeep.backend.data.upsample import upsample
 from audeep.backend.models.mlp import MLPModel
 
 
-class LearnerBase:
+class LearnerBase(metaclass=ABCMeta):
     """
     Defines a common interface for all classification algorithms.
     """
-    __metaclass__ = ABCMeta
 
     _num_features = None
 
@@ -277,7 +276,7 @@ def _majority_vote(chunked_data_set: DataSet,
 
         predictions[instance.filename].append(chunked_predictions[index])
 
-    predictions = {item[0]: np.argmax(np.bincount(item[1])) for item in predictions.items()}
+    predictions = {item[0]: np.argmax(np.bincount(item[1])) for item in list(predictions.items())}
 
     return predictions
 
@@ -350,4 +349,4 @@ class PreProcessingWrapper(LearnerBase):
         if self._majority_vote:
             return _majority_vote(data_set, chunked_predictions)
         else:
-            return dict(zip(data_set.filenames, chunked_predictions))
+            return dict(list(zip(data_set.filenames, chunked_predictions)))

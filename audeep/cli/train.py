@@ -33,13 +33,12 @@ from audeep.backend.training.frequency_time_autoencoder import FrequencyTimeAuto
 from audeep.backend.training.time_autoencoder import TimeAutoencoderWrapper
 
 
-class TrainBaseCommand(LoggingMixin, Command):
+class TrainBaseCommand(LoggingMixin, Command, metaclass=abc.ABCMeta):
     """
     Base class for all training commands.
     
     Defines common command line options and common functionality.
     """
-    __metaclass__ = abc.ABCMeta
 
     def __init__(self,
                  app,
@@ -198,13 +197,12 @@ class TrainBaseCommand(LoggingMixin, Command):
         pass
 
 
-class TrainAutoencoderBaseCommand(TrainBaseCommand):
+class TrainAutoencoderBaseCommand(TrainBaseCommand, metaclass=abc.ABCMeta):
     """
     Base command for autoencoder training commands.
     
     Defines common command line options, and common functionality.
     """
-    __metaclass__ = abc.ABCMeta
 
     def get_parser(self, prog_name):
         parser = super().get_parser(prog_name)

@@ -206,7 +206,7 @@ class DataImporter(LoggingMixin):
             nominal_labels = np.unique([row[label_nominal_index] for row in data]).tolist()
 
             # noinspection PyTypeChecker
-            label_map = dict(zip(nominal_labels, range(len(nominal_labels))))
+            label_map = dict(list(zip(nominal_labels, list(range(len(nominal_labels))))))
 
         num_features = len(data[0]) - len(metadata_columns)
 
@@ -306,7 +306,7 @@ class DataImporter(LoggingMixin):
             nominal_labels = np.unique(data_frame[self._label_nominal_attribute]).tolist()
 
             # noinspection PyTypeChecker
-            label_map = dict(zip(nominal_labels, range(len(nominal_labels))))
+            label_map = dict(list(zip(nominal_labels, list(range(len(nominal_labels))))))
 
         num_features = len(data_frame.columns) - len(metadata_columns)
 

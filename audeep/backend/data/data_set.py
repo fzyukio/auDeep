@@ -302,7 +302,7 @@ class _Instance:
             raise AttributeError("data set is immutable")
         if self.label_map is not None and value is not None and value not in self.label_map:
             raise ValueError(
-                "nominal label not contained in label map: {} not in {}".format(value, self.label_map.keys()))
+                "nominal label not contained in label map: {} not in {}".format(value, list(self.label_map.keys())))
 
         self._set_value(_DataVar.LABEL_NOMINAL, value)
 
@@ -708,7 +708,7 @@ class DataSet(LoggingMixin):
                 del self._data.attrs[_Attribute.LABEL_MAP]
         else:
             # sort dictionary items to make sure that equal label maps have equal representations
-            self._data.attrs[_Attribute.LABEL_MAP] = json.dumps(sorted(value.items(), key=lambda i: i[0]))
+            self._data.attrs[_Attribute.LABEL_MAP] = json.dumps(sorted(list(value.items()), key=lambda i: i[0]))
 
     @property
     def filenames(self) -> np.ndarray:
@@ -1550,4 +1550,4 @@ def check_integrity(data_set: DataSet) -> Optional[Mapping[int, List[str]]]:
                 violations[4].append("chunk {} of file {} has invalid labels: {} ({})"
                                      .format(instance.chunk_nr, instance.filename, label_nominal, label_numeric))
 
-    return None if all([not x for x in violations.values()]) else violations
+    return None if all([not x for x in list(violations.values())]) else violations

@@ -163,7 +163,7 @@ class GraphWrapper(LoggingMixin):
         return self.graph.get_collection("train_op")[0]
 
 
-class BaseFeatureLearningWrapper(LoggingMixin):
+class BaseFeatureLearningWrapper(LoggingMixin, metaclass=abc.ABCMeta):
     """
     Wrapper for a feature learning model.
     
@@ -190,7 +190,6 @@ class BaseFeatureLearningWrapper(LoggingMixin):
        tensor, one or more loss tensors, and a training operation.
      
     """
-    __metaclass__ = abc.ABCMeta
 
     @abc.abstractmethod
     def _create_model(self,

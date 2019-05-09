@@ -73,9 +73,9 @@ class Validate(Command):
             print()
 
             for index, header in enumerate(constraint_headers):
-                print("%d. %-81s %{}d violations".format(num_digits) % (
-                    index + 1, header, len(constraint_violations[index])))
+                print(("%d. %-81s %{}d violations".format(num_digits) % (
+                    index + 1, header, len(constraint_violations[index]))))
 
                 if parsed_args.detailed:
                     for violation in constraint_violations[index]:
-                        print("\t%s" % violation)
+                        print(("\t%s" % violation))

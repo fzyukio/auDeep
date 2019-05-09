@@ -60,6 +60,11 @@ class ESCParser(LoggingMixin, Parser):
         bool
             True, if this parser can parse the directory structure in the data set base directory
         """
+
+        if len(self._class_dirs) == 0:
+            self.log.debug("cannot parse: no class directories exist")
+            return False
+
         class_dir_pattern = re.compile("^\d{3} - .+")
 
         for class_dir in self._class_dirs:  # type: Path

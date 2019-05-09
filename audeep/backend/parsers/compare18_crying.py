@@ -99,7 +99,7 @@ class Compare18CryingParser(LoggingMixin, Parser):
         meta_list = []
 
         metadata = self._metadata()
-        inverse_label_map = dict(map(reversed, self.label_map.items()))
+        inverse_label_map = dict(list(map(reversed, list(self.label_map.items()))))
 
         for file in sorted(self._audio_dir.glob("*.*")):
             label_numeric = float(metadata.loc[metadata["file_name"] == file.name]["label"])

@@ -43,9 +43,9 @@ if not tensorflow_found:
             minor = int(version_string.group("minor"))
 
             if major != 10 or minor != 0:
-                print("detected incompatible CUDA version %d.%d" % (major, minor))
+                print(("detected incompatible CUDA version %d.%d" % (major, minor)))
             else:
-                print("detected compatible CUDA version %d.%d" % (major, minor))
+                print(("detected compatible CUDA version %d.%d" % (major, minor)))
 
                 use_gpu = True
         else:
@@ -53,7 +53,7 @@ if not tensorflow_found:
     except CalledProcessError:
         print("no CUDA detected")
     except Exception as e:
-        print("error during CUDA detection: %s", e)
+        print(("error during CUDA detection: %s", e))
 
     if use_gpu:
         dependencies.append("tensorflow-gpu==1.13.1")

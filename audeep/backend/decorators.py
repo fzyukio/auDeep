@@ -74,7 +74,7 @@ def scoped_subgraph_initializers(klass):
 
     original_methods = klass.__dict__.copy()
 
-    for name, method in original_methods.items():
+    for name, method in list(original_methods.items()):
         if hasattr(method, "_scoped_subgraph"):
             def init_fn(fn_self, method=method):
                 attribute = "_cache_" + method.__name__

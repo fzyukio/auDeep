@@ -63,7 +63,7 @@ def create_cv_setup(data_set: DataSet,
         # use pandas to get indices of instances of the same filename
         df = pd.DataFrame({"filenames": data_set.filenames})
 
-        chunk_indices = [indices.tolist() for indices in df.groupby(df.filenames).groups.values()]
+        chunk_indices = [indices.tolist() for indices in list(df.groupby(df.filenames).groups.values())]
 
         # in a valid data set, all chunks of the same filename have the same label, and there is at least one chunk
         # per filename
@@ -87,7 +87,7 @@ def create_cv_setup(data_set: DataSet,
         # use pandas to get indices of instances of the same filename
         df = pd.DataFrame({"filenames": data_set.filenames})
 
-        chunk_indices = [indices.tolist() for indices in df.groupby(df.filenames).groups.values()]
+        chunk_indices = [indices.tolist() for indices in list(df.groupby(df.filenames).groups.values())]
 
         valid_split_indices = [chunk_indices[i::num_folds] for i in range(num_folds)]
 
@@ -139,7 +139,7 @@ def create_partitioning(data_set: DataSet,
         # use pandas to get indices of instances of the same filename
         df = pd.DataFrame({"filenames": data_set.filenames})
 
-        chunk_indices = [indices.tolist() for indices in df.groupby(df.filenames).groups.values()]
+        chunk_indices = [indices.tolist() for indices in list(df.groupby(df.filenames).groups.values())]
 
         # in a valid data set, all chunks of the same filename have the same label, and there is at least one chunk
         # per filename
@@ -160,7 +160,7 @@ def create_partitioning(data_set: DataSet,
         # use pandas to get indices of instances of the same filename
         df = pd.DataFrame({"filenames": data_set.filenames})
 
-        chunk_indices = [indices.tolist() for indices in df.groupby(df.filenames).groups.values()]
+        chunk_indices = [indices.tolist() for indices in list(df.groupby(df.filenames).groups.values())]
 
         partition_indices = [chunk_indices[i::num_partitions] for i in range(num_partitions)]
 

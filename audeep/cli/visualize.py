@@ -64,12 +64,12 @@ class VisualizeTSNE(LoggingMixin, Command):
 
         # use pandas to get indices of instances with the same label
         df = pd.DataFrame({"labels_numeric": data_set.labels_numeric})
-        label_indices = {label: indices.tolist() for label, indices in df.groupby(df.labels_numeric).groups.items()}
+        label_indices = {label: indices.tolist() for label, indices in list(df.groupby(df.labels_numeric).groups.items())}
 
         norm = matplotlib.colors.Normalize(vmin=min(label_indices.keys()), vmax=max(label_indices.keys()), clip=True)
         mapper = cm.ScalarMappable(norm=norm, cmap="jet")
 
-        for label, indices in label_indices.items():
+        for label, indices in list(label_indices.items()):
             coords = embedding[indices, :]
             plt.plot(coords[:, 0], coords[:, 1], 'o', ms=6, color=mapper.to_rgba(label))
 

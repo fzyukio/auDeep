@@ -186,7 +186,7 @@ class CrossValidatedEvaluation(LoggingMixin):
         confusion_matrices = []
 
         # order numeric labels by nominal value
-        ordered_labels = sorted(data_set.label_map.items(), key=lambda t: t[0])
+        ordered_labels = sorted(list(data_set.label_map.items()), key=lambda t: t[0])
         ordered_labels = list(zip(*ordered_labels))[1]
 
         for fold in range(data_set.num_folds):
@@ -209,8 +209,8 @@ class CrossValidatedEvaluation(LoggingMixin):
             true_labels = valid_split.filename_labels_numeric
 
             # sort labels and predictions by filename
-            predictions = np.array([item[1] for item in sorted(predictions.items(), key=lambda item: item[0])])
-            true_labels = np.array([item[1] for item in sorted(true_labels.items(), key=lambda item: item[0])])
+            predictions = np.array([item[1] for item in sorted(list(predictions.items()), key=lambda item: item[0])])
+            true_labels = np.array([item[1] for item in sorted(list(true_labels.items()), key=lambda item: item[0])])
 
             accuracy = accuracy_score(true_labels, predictions)
             uar = uar_score(true_labels, predictions)
@@ -356,14 +356,14 @@ class PartitionedEvaluation(LoggingMixin):
         true_labels = eval_split.filename_labels_numeric
 
         # sort labels and predictions by filename
-        predictions = np.array([item[1] for item in sorted(predictions.items(), key=lambda item: item[0])])
-        true_labels = np.array([item[1] for item in sorted(true_labels.items(), key=lambda item: item[0])])
+        predictions = np.array([item[1] for item in sorted(list(predictions.items()), key=lambda item: item[0])])
+        true_labels = np.array([item[1] for item in sorted(list(true_labels.items()), key=lambda item: item[0])])
 
         self._accuracy = accuracy_score(true_labels, predictions)
         self._uar = uar_score(true_labels, predictions)
 
         # order numeric labels by nominal value
-        ordered_labels = sorted(data_set.label_map.items(), key=lambda t: t[0])
+        ordered_labels = sorted(list(data_set.label_map.items()), key=lambda t: t[0])
         ordered_labels = list(zip(*ordered_labels))[1]
 
         self._confusion_matrix = confusion_matrix(y_true=true_labels,

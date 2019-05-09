@@ -86,7 +86,7 @@ class RNNArchitecture:
 
 
 @scoped_subgraph_initializers
-class _RNNBase:
+class _RNNBase(metaclass=abc.ABCMeta):
     """
     Base class for all RNN implementations.
     
@@ -107,7 +107,6 @@ class _RNNBase:
     the latter RNN will receive the same initial hidden state vector as the final hidden state vector of the
     corresponding cells in the former RNN.
     """
-    __metaclass__ = abc.ABCMeta
 
     def __init__(self,
                  architecture: RNNArchitecture,
@@ -277,7 +276,7 @@ class _RNNBase:
 
         if self.bidirectional:
             initial_states = tuple([tf.split(x, 2, axis=1) for x in initial_states])
-            initial_states_fw, initial_states_bw = zip(*initial_states)
+            initial_states_fw, initial_states_bw = list(zip(*initial_states))
 
             if self.cell_type == CellType.LSTM:
                 initial_states_fw = tuple([LSTMStateTuple(*tf.split(lstm_state, 2, axis=1))

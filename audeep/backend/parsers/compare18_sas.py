@@ -33,9 +33,7 @@ _COMPARE18_SAS_LABEL_MAP = {
 }
 
 
-class Compare18SASParser(LoggingMixin, Parser):
-    __metaclass__ = abc.ABCMeta
-
+class Compare18SASParser(LoggingMixin, Parser, metaclass=abc.ABCMeta):
     def __init__(self, basedir: Path):
         super().__init__(basedir)
 

@@ -102,16 +102,16 @@ class PredictBaseCommand(LoggingMixin, Command):
         self._learner.fit(train_data)
         predictions = self._learner.predict(eval_data)
 
-        inverse_label_map = dict(map(reversed, train_data.label_map.items()))
+        inverse_label_map = dict(list(map(reversed, list(train_data.label_map.items()))))
         predictions = [(item[0], inverse_label_map[item[1]]) for item in
-                       sorted(predictions.items(), key=lambda item: item[0])]
+                       sorted(list(predictions.items()), key=lambda item: item[0])]
 
         self.log.info("writing predictions to %s", parsed_args.output)
 
         if not parsed_args.output.parent.exists():
             parsed_args.output.parent.mkdir(parents=True)
 
-        output = pd.DataFrame.from_records(predictions, index=range(len(predictions)))
+        output = pd.DataFrame.from_records(predictions, index=list(range(len(predictions))))
         output.to_csv(parsed_args.output, sep="\t", index=False, header=False)
 
 

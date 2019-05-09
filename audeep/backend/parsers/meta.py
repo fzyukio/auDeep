@@ -24,6 +24,7 @@ from audeep.backend.parsers.base import Parser, _InstanceMetadata
 from audeep.backend.parsers.cross_validated import CrossValidatedParser
 from audeep.backend.parsers.dcase import DCASEParser
 from audeep.backend.parsers.esc import ESCParser
+from audeep.backend.parsers.koe import KoeParser
 from audeep.backend.parsers.partitioned import PartitionedParser
 from audeep.backend.parsers.urban_sound_8k import UrbanSound8KParser
 
@@ -56,7 +57,8 @@ class MetaParser(LoggingMixin, Parser):
             PartitionedParser(basedir),
             CrossValidatedParser(basedir),
             ESCParser(basedir),
-            UrbanSound8KParser(basedir)
+            UrbanSound8KParser(basedir),
+            KoeParser(basedir)
         ]
 
     @property
